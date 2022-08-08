@@ -1,0 +1,43 @@
+.layout {
+  &-body {
+    margin-top: 78px;
+
+    &-authd {
+      position: absolute;
+      top: 78px;
+      left: 0;
+    }
+  }
+
+  &-nav {
+    &>div {
+      flex: 1;
+
+      .collapse {
+        flex: 0
+      }
+    }
+
+    &>#toggle {
+      text-align: left;
+    }
+
+    &>a {
+      text-align: center;
+    }
+  }
+
+  &-sider {
+    position: fixed !important;
+    top: 78px;
+    left: 0;
+    min-width: 16.6%;
+    min-height: 100vh;
+    z-index: 11;
+    border: 0;
+
+    &-icon {
+      width: 21px;
+    }
+  }
+}
