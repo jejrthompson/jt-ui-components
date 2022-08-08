@@ -8,6 +8,7 @@
   "files": [
     "dist"
   ],
+  "repository": "",
   "scripts": {
     "build": "yarn run clean && yarn run build:types && yarn run build:rollup",
     "build:rollup": "rollup -c",
