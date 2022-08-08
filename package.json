@@ -8,7 +8,7 @@
   "files": [
     "dist"
   ],
-  "repository": "",
+  "repository": "https://github.com/jejrthompson/jt-ui-components",
   "scripts": {
     "build": "yarn run clean && yarn run build:types && yarn run build:rollup",
     "build:rollup": "rollup -c",
