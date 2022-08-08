@@ -1,6 +1,6 @@
 {
   "name": "jt-ui-components",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "JT Components for React-Bootstrap",
   "main": "dist/esm/index.js",
   "module": "dist/cjs/index.js",
@@ -15,7 +15,7 @@
     "build:types": "tsc --declaration --emitDeclarationOnly --declarationDir dist/types",
     "clean": "rm -rf ./dist",
     "link": "yarn link",
-    "publish": "yarn build && yarn publish",
+    "publish": "yarn build && yarn publish --patch",
     "rollup:watch": "rollup -c -w"
   },
   "author": "",

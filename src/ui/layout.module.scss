@@ -9,25 +9,21 @@
     }
   }
 
-  &-navbar {
-    min-height: 78px;
+  &-nav {
+    &>div {
+      flex: 1;
 
-    &-nav {
-      &>div {
-        flex: 1;
-
-        .collapse {
-          flex: 0
-        }
+      .collapse {
+        flex: 0
       }
+    }
 
-      &>#toggle {
-        text-align: left;
-      }
+    &>#toggle {
+      text-align: left;
+    }
 
-      &>a {
-        text-align: center;
-      }
+    &>a {
+      text-align: center;
     }
   }
 
@@ -39,6 +35,10 @@
     min-height: 100vh;
     z-index: 11;
     border: 0;
+
+    .nav-link.active {
+      color: white !important;
+    }
 
     &-icon {
       width: 21px;

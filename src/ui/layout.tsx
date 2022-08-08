@@ -119,7 +119,7 @@ const Layout: FC<LayoutProps> = ({
         fixed="top"
         collapseOnSelect
         onToggle={setOpen}
-        className={styles["layout-navbar"]}
+        style={{ minHeight: "78px" }}
       >
         <Container className={styles["layout-nav"]} fluid>
           <div id="toggle">
