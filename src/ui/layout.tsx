@@ -2,13 +2,8 @@ import {
   FontAwesomeIcon,
   FontAwesomeIconProps,
 } from "@fortawesome/react-fontawesome";
-import {
-  FC,
-  ForwardRefExoticComponent,
-  ReactNode,
-  useCallback,
-  useState,
-} from "react";
+import { includes } from "lodash";
+import { FC, ReactNode, useCallback, useState } from "react";
 import {
   Col,
   Container,
@@ -51,11 +46,24 @@ const Layout: FC<LayoutProps> = ({
   const [open, setOpen] = useState(true);
   const [expanded, setExpanded] = useState(true);
 
+  const isActive = useCallback(
+    (key: string) => {
+      if (activeItem) {
+        if (key === "/") {
+          return activeItem === "/" ? true : false;
+        } else {
+          return includes(activeItem, key);
+        }
+      }
+    },
+    [activeItem]
+  );
+
   const renderNavLinkItem = useCallback(
     (item: IItem) => (
       <Nav.Link
         className={`text-${variant === "dark" ? "white" : "dark"} px-3 pe-xl-5`}
-        active={activeItem === item.key}
+        active={isActive(item.key)}
       >
         <Stack direction="horizontal" gap={2}>
           <div className={styles["layout-sider-icon"]}>
@@ -65,7 +73,7 @@ const Layout: FC<LayoutProps> = ({
         </Stack>
       </Nav.Link>
     ),
-    [activeItem, expanded, variant]
+    [expanded, isActive, variant]
   );
 
   const renderMenu = useCallback(
@@ -77,6 +85,29 @@ const Layout: FC<LayoutProps> = ({
       </Nav.Item>
     ),
     [linkAs, renderNavLinkItem]
+  );
+
+  const OffcanvasHeader = useCallback(
+    ({ children }: { children: ReactNode }) =>
+      variant === "dark" ? (
+        <Offcanvas.Header
+          className={`bg-${variant} pe-4`}
+          closeVariant="white"
+          closeLabel="Close"
+          closeButton
+        >
+          {children}
+        </Offcanvas.Header>
+      ) : (
+        <Offcanvas.Header
+          className={`bg-${variant} pe-4`}
+          closeLabel="Close"
+          closeButton
+        >
+          {children}
+        </Offcanvas.Header>
+      ),
+    [variant]
   );
 
   return (
@@ -100,16 +131,11 @@ const Layout: FC<LayoutProps> = ({
               aria-labelledby="responsive-navbar-nav-label"
               className={styles["layout-sider"]}
             >
-              <Offcanvas.Header
-                className={`bg-${variant} pe-4`}
-                closeVariant={variant === "dark" ? "white" : ""}
-                closeLabel="Close"
-                closeButton
-              >
+              <OffcanvasHeader>
                 <Offcanvas.Title id="responsive-navbar-nav-label">
                   {logo}
                 </Offcanvas.Title>
-              </Offcanvas.Header>
+              </OffcanvasHeader>
               <Offcanvas.Body className={`bg-${variant} min-vh-100`}>
                 {isAuthenticated && (
                   <Nav

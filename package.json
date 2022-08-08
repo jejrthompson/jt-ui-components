@@ -15,6 +15,7 @@
     "build:types": "tsc --declaration --emitDeclarationOnly --declarationDir dist/types",
     "clean": "rm -rf ./dist",
     "link": "yarn link",
+    "publish": "yarn build && yarn publish",
     "rollup:watch": "rollup -c -w"
   },
   "author": "",
