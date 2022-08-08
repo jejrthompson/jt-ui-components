@@ -62,7 +62,7 @@ const Layout: FC<LayoutProps> = ({
   const renderNavLinkItem = useCallback(
     (item: IItem) => (
       <Nav.Link
-        className={`text-${variant === "dark" ? "white" : "dark"} px-3 pe-xl-5`}
+        className={`${variant === "dark" ? "text-white" : ""} px-3 pe-xl-5`}
         active={isActive(item.key)}
       >
         <Stack direction="horizontal" gap={2}>
@@ -119,6 +119,7 @@ const Layout: FC<LayoutProps> = ({
         fixed="top"
         collapseOnSelect
         onToggle={setOpen}
+        className={styles["layout-navbar"]}
       >
         <Container className={styles["layout-nav"]} fluid>
           <div id="toggle">

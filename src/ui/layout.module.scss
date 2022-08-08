@@ -9,28 +9,32 @@
     }
   }
 
-  &-nav {
-    &>div {
-      flex: 1;
+  &-navbar {
+    min-height: 78px;
 
-      .collapse {
-        flex: 0
+    &-nav {
+      &>div {
+        flex: 1;
+
+        .collapse {
+          flex: 0
+        }
       }
-    }
 
-    &>#toggle {
-      text-align: left;
-    }
+      &>#toggle {
+        text-align: left;
+      }
 
-    &>a {
-      text-align: center;
+      &>a {
+        text-align: center;
+      }
     }
   }
 
   &-sider {
     position: fixed !important;
-    top: 78px;
-    left: 0;
+    top: 78px !important;
+    left: 0 !important;
     min-width: 16.6%;
     min-height: 100vh;
     z-index: 11;

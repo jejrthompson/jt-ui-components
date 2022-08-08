@@ -1,3 +1,5 @@
+import { config, library } from "@fortawesome/fontawesome-svg-core";
+import { faQuestion, faXmark } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 
 import {
@@ -23,6 +25,9 @@ import {
   InputTypeahead,
 } from "./input";
 import { Layout, LayoutProps } from "./ui";
+
+config.autoAddCss = false;
+library.add(faQuestion, faXmark);
 
 const Form = {
   InputButton,
