@@ -7,10 +7,7 @@ import {
   useState,
 } from "react";
 
-import ModalRenderer, {
-  IModal,
-  IModalRendererProps,
-} from "../modals/modalRenderer";
+import ModalRenderer, { IModal } from "../modals/modalRenderer";
 
 interface IModalProviderProps {
   children: ReactNode;
@@ -34,20 +31,16 @@ const useModal = () => useContext(ModalContext);
 
 function ModalProvider({ children }: IModalProviderProps) {
   const [modal, setModal] = useState<IModal<any>>();
-  const [type, setType] = useState<IModalRendererProps<any>["type"]>();
 
   const save: <T>(modal: IModal<T>) => void = useCallback((modal) => {
-    setType("save");
     setModal(modal);
   }, []);
 
   const ask: (modal: IModal) => void = useCallback((modal) => {
-    setType("ask");
     setModal(modal);
   }, []);
 
   const info: (modal: IModal) => void = useCallback((modal) => {
-    setType("info");
     setModal(modal);
   }, []);
 
@@ -56,7 +49,7 @@ function ModalProvider({ children }: IModalProviderProps) {
   return (
     <ModalContext.Provider value={{ save, ask, info, destroy }}>
       {children}
-      {modal && <ModalRenderer modal={modal} type={type} />}
+      {modal && <ModalRenderer modal={modal} />}
     </ModalContext.Provider>
   );
 }

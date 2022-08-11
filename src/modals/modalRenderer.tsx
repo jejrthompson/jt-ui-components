@@ -45,7 +45,11 @@ interface IModalSave<TForm extends IInputFormValues<TForm>> {
       ) => Promise<boolean>);
 }
 
-export type IModal<TForm extends IInputFormValues<TForm> = {}> = {
+export type IModal<
+  TForm extends IInputFormValues<TForm> = Partial<
+    Record<never, string | number | boolean | Date | undefined>
+  >
+> = {
   type: "info" | "ask" | "save";
   title: string;
   icon?: FontAwesomeIconProps["icon"];
@@ -62,13 +66,13 @@ interface IModalProperties {
 
 export interface IModalRendererProps<TForm extends IInputFormValues<TForm>> {
   modal: IModal<TForm>;
-  type?: "info" | "ask" | "save";
+  // type?: "info" | "ask" | "save";
 }
 
 export default function ModalRenderer<TForm extends IInputFormValues<TForm>>({
   modal,
-  type,
-}: IModalRendererProps<TForm>) {
+}: // type,
+IModalRendererProps<TForm>) {
   const [show, setShow] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -90,7 +94,6 @@ export default function ModalRenderer<TForm extends IInputFormValues<TForm>>({
       setIsLoading(true);
       if (modal?.type === "save" && modal?.onSubmit) {
         const shouldClose = await modal.onSubmit(values, formikHelpers);
-        console.log(shouldClose);
         if (shouldClose) {
           setShow(false);
         }
@@ -192,15 +195,16 @@ export default function ModalRenderer<TForm extends IInputFormValues<TForm>>({
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {modal.type &&
+          {formikProps &&
+            modal.type &&
             (modal.type === "save"
               ? isFunction(modal.body)
-                ? modal.body(formikProps!)
+                ? modal.body(formikProps)
                 : modal.body
               : modal.body)}
         </Modal.Body>
         <Modal.Footer className="bg-light">
-          {modalProps?.buttons.map((button, idx) => (
+          {modalProps.buttons.map((button, idx) => (
             <InputButton key={idx} {...button} isLoading={modal.isLoading} />
           ))}
         </Modal.Footer>
@@ -216,7 +220,6 @@ export default function ModalRenderer<TForm extends IInputFormValues<TForm>>({
         onHide={handleClose}
         size={modal.size}
         fullscreen="sm-down"
-        // centered
       >
         {modal.type === "save" ? (
           <InputForm<TForm>

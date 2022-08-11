@@ -21,6 +21,7 @@ export default function ToastRenderer({ toast }: { toast: IToast }) {
       show={show}
       delay={!isUndefined(toast.delay) ? toast.delay : 4000}
       autohide={!isUndefined(toast.delay)}
+      style={{ zIndex: 999 }}
     >
       <Toast.Header>
         <FontAwesomeIcon icon="lightbulb" className="me-2 text-warning" />

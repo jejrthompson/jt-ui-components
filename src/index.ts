@@ -1,6 +1,10 @@
 import { config, library } from "@fortawesome/fontawesome-svg-core";
-import { faQuestion, faXmark } from "@fortawesome/free-solid-svg-icons";
-import React from "react";
+import {
+  faLightbulb,
+  faQuestion,
+  faSave,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 
 import {
   IModalContext,
@@ -27,7 +31,7 @@ import {
 import { Layout, LayoutProps } from "./ui";
 
 config.autoAddCss = false;
-library.add(faQuestion, faXmark);
+library.add(faLightbulb, faQuestion, faSave, faXmark);
 
 const Form = {
   InputButton,

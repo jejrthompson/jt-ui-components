@@ -2,7 +2,7 @@ import {
   FontAwesomeIcon,
   FontAwesomeIconProps,
 } from "@fortawesome/react-fontawesome";
-import { includes } from "lodash";
+import { startsWith } from "lodash";
 import { FC, ReactNode, useCallback, useState } from "react";
 import {
   Col,
@@ -52,7 +52,7 @@ const Layout: FC<LayoutProps> = ({
         if (key === "/") {
           return activeItem === "/" ? true : false;
         } else {
-          return includes(activeItem, key);
+          return startsWith(key, activeItem);
         }
       }
     },
@@ -62,7 +62,9 @@ const Layout: FC<LayoutProps> = ({
   const renderNavLinkItem = useCallback(
     (item: IItem) => (
       <Nav.Link
-        className={`${variant === "dark" ? "text-white" : ""} px-3 pe-xl-5`}
+        className={`${
+          variant === "dark" || isActive(item.key) ? "text-white" : ""
+        } px-3 pe-xl-5`}
         active={isActive(item.key)}
       >
         <Stack direction="horizontal" gap={2}>
