@@ -5,6 +5,12 @@ import InputSelect from "./InputSelect";
 import InputText from "./InputText";
 import InputTypeahead from "./InputTypeahead";
 
+interface IInputComponent {
+  label: string;
+  disabled?: boolean;
+  required?: boolean;
+}
+
 export {
   InputButton,
   InputCheck,
@@ -13,3 +19,5 @@ export {
   InputText,
   InputTypeahead,
 };
+
+export type { IInputComponent };

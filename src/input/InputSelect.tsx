@@ -3,19 +3,18 @@ import { camelCase, isString } from "lodash";
 import { useCallback, useMemo } from "react";
 import { Form } from "react-bootstrap";
 
+import { IInputComponent } from ".";
+
 export type IInputSelectOption =
   | {
-      value: string;
+      value: string | number;
       label: string;
       disabled?: boolean;
     }
   | string;
 
-export interface IInputSelectProps {
-  label: string;
+export interface IInputSelectProps extends IInputComponent {
   options: IInputSelectOption[] | undefined;
-  disabled?: boolean;
-  required?: boolean;
 }
 
 export default function InputSelect({
@@ -24,8 +23,7 @@ export default function InputSelect({
   disabled,
   required,
 }: IInputSelectProps) {
-  const { values, touched, errors } =
-    useFormikContext<Record<string, string>>();
+  const { errors } = useFormikContext<Record<string, string>>();
 
   const validate = useCallback(
     (value: string | number | undefined) => {

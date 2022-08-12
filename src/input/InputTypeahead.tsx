@@ -6,15 +6,14 @@ import { Hint, Typeahead } from "react-bootstrap-typeahead";
 import { TypeaheadComponentProps } from "react-bootstrap-typeahead/types/components/Typeahead";
 import { Option, TypeaheadState } from "react-bootstrap-typeahead/types/types";
 
+import { IInputComponent } from ".";
+
 type OptionType<T> = { _id: string } & T;
 
-export interface IInputTypeaheadProps<T> {
-  label: string;
+export interface IInputTypeaheadProps<T> extends IInputComponent {
   options: OptionType<T>[];
   idKey?: string;
   labelKey?: string;
-  disabled?: boolean;
-  required?: boolean;
   floatingLabel?: boolean;
   showLabel?: boolean;
   allowNew?:

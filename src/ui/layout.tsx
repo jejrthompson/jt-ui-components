@@ -49,8 +49,8 @@ const Layout: FC<LayoutProps> = ({
   const isActive = useCallback(
     (key: string) => {
       if (activeItem) {
-        if (key === "/") {
-          return activeItem === "/" ? true : false;
+        if (activeItem === "/") {
+          return key === "/" ? true : false;
         } else {
           return startsWith(key, activeItem);
         }

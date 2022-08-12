@@ -3,10 +3,9 @@ import { camelCase } from "lodash";
 import { useCallback, useMemo } from "react";
 import { FloatingLabel, Form } from "react-bootstrap";
 
-export interface IInputTextProps {
-  label: string;
-  disabled?: boolean;
-  required?: boolean;
+import { IInputComponent } from ".";
+
+export interface IInputTextProps extends IInputComponent {
   showLabel?: boolean;
   floatingLabel?: boolean;
   type:
@@ -41,11 +40,11 @@ export default function InputText({
   label,
   disabled,
   required,
+  type,
   floatingLabel = false,
   showLabel = true,
 }: IInputTextProps) {
-  const { values, touched, errors } =
-    useFormikContext<Record<string, string>>();
+  const { errors } = useFormikContext<Record<string, string>>();
 
   const validate = useCallback(
     (value: string | number | undefined) => {
@@ -64,11 +63,12 @@ export default function InputText({
       disabled,
       validate,
       required,
+      type,
       as: Form.Control,
-      placeholder: label.replace(/[\?\:]/g, ""),
+      placeholder: label.replace(/[?:]/g, ""),
       isInvalid: errors[name],
     }),
-    [disabled, errors, label, name, required, validate]
+    [disabled, errors, label, name, required, type, validate]
   );
 
   return (

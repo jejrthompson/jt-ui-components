@@ -1,23 +1,21 @@
 import { Field, ErrorMessage, useFormikContext } from "formik";
 import { camelCase } from "lodash";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { Form } from "react-bootstrap";
 
-export interface IInputCheckProps {
-  label: string;
+import { IInputComponent } from ".";
+
+export interface IInputCheckProps extends IInputComponent {
   type?: "radio" | "checkbox" | "switch";
-  disabled?: boolean;
-  required?: boolean;
 }
 
-export default function InputCheck<T>({
+export default function InputCheck({
   label,
   type = "checkbox",
   disabled,
   required,
 }: IInputCheckProps) {
-  const { values, touched, errors } =
-    useFormikContext<Record<string, boolean>>();
+  const { errors } = useFormikContext<Record<string, boolean>>();
 
   const validate = useCallback(
     (value: string | number | undefined) => {

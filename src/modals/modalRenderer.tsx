@@ -205,7 +205,7 @@ IModalRendererProps<TForm>) {
         </Modal.Body>
         <Modal.Footer className="bg-light">
           {modalProps.buttons.map((button, idx) => (
-            <InputButton key={idx} {...button} isLoading={modal.isLoading} />
+            <InputButton key={idx} {...button} />
           ))}
         </Modal.Footer>
       </>
@@ -214,25 +214,23 @@ IModalRendererProps<TForm>) {
   );
 
   return (
-    <>
-      <Modal
-        show={show}
-        onHide={handleClose}
-        size={modal.size}
-        fullscreen="sm-down"
-      >
-        {modal.type === "save" ? (
-          <InputForm<TForm>
-            onSubmit={handleSubmit}
-            initialValues={modal.initialValues}
-            validate={modal.validate}
-          >
-            {renderModalInner}
-          </InputForm>
-        ) : (
-          renderModalInner()
-        )}
-      </Modal>
-    </>
+    <Modal
+      show={show}
+      onHide={handleClose}
+      size={modal.size}
+      fullscreen="sm-down"
+    >
+      {modal.type === "save" ? (
+        <InputForm<TForm>
+          onSubmit={handleSubmit}
+          initialValues={modal.initialValues}
+          validate={modal.validate}
+        >
+          {renderModalInner}
+        </InputForm>
+      ) : (
+        renderModalInner()
+      )}
+    </Modal>
   );
 }

@@ -30,6 +30,7 @@ const ModalContext = createContext<IModalContext>({
 const useModal = () => useContext(ModalContext);
 
 function ModalProvider({ children }: IModalProviderProps) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [modal, setModal] = useState<IModal<any>>();
 
   const save: <T>(modal: IModal<T>) => void = useCallback((modal) => {
