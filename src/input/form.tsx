@@ -9,18 +9,20 @@ export type IInputFormValues<TForm> = Partial<
 
 export interface IInputFormProps<TForm extends IInputFormValues<TForm>> {
   initialValues: TForm;
-  onSubmit?: FormikConfig<TForm>["onSubmit"];
-  validate: FormikConfig<TForm>["validate"];
   children?:
     | ReactElement
-    | ((props: FormikProps<TForm>) => ReactElement | undefined);
+    | ReactElement[]
+    | ((props: FormikProps<TForm>) => ReactElement)
+    | ((props: FormikProps<TForm>) => ReactElement[]);
+  onSubmit?: FormikConfig<TForm>["onSubmit"];
+  validate?: FormikConfig<TForm>["validate"];
 }
 
 export default function InputForm<TForm extends IInputFormValues<TForm>>({
   initialValues,
-  onSubmit = noop,
-  validate,
   children,
+  onSubmit = noop,
+  validate = noop,
 }: IInputFormProps<TForm>) {
   const formikProps: FormikConfig<TForm> = useMemo(
     () => ({ initialValues, onSubmit, validate }),

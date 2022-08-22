@@ -1,5 +1,5 @@
 import { Field, ErrorMessage, useFormikContext } from "formik";
-import { camelCase, isString } from "lodash";
+import { camelCase, isObject, isString } from "lodash";
 import { useCallback, useMemo } from "react";
 import { Form } from "react-bootstrap";
 
@@ -11,7 +11,8 @@ export type IInputSelectOption =
       label: string;
       disabled?: boolean;
     }
-  | string;
+  | string
+  | number;
 
 export interface IInputSelectProps extends IInputComponent {
   options: IInputSelectOption[] | undefined;
@@ -36,8 +37,6 @@ export default function InputSelect({
 
   const name = useMemo(() => camelCase(label), [label]);
 
-  const camelCaseOption = useCallback((str: string) => camelCase(str), []);
-
   return (
     <Form.Group controlId={`form.${name}`}>
       <Form.Label>
@@ -55,16 +54,16 @@ export default function InputSelect({
         <option defaultValue={undefined}>Select one...</option>
         {options &&
           options.map((option, idx) =>
-            isString(option) ? (
-              <option
-                key={camelCaseOption(option)}
-                value={camelCaseOption(option)}
-              >
-                {option}
-              </option>
-            ) : (
+            isObject(option) ? (
               <option key={idx} value={option.value} disabled={option.disabled}>
                 {option.label}
+              </option>
+            ) : (
+              <option
+                key={idx}
+                value={isString(option) ? camelCase(option) : option}
+              >
+                {option}
               </option>
             )
           )}

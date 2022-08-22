@@ -1,9 +1,12 @@
 import InputForm from "./form";
-import InputButton from "./InputButton";
-import InputCheck from "./InputCheck";
-import InputSelect from "./InputSelect";
-import InputText from "./InputText";
-import InputTypeahead from "./InputTypeahead";
+import InputButton, { IInputButtonProps } from "./InputButton";
+import InputCheck, { IInputCheckProps } from "./InputCheck";
+import InputSelect, {
+  IInputSelectOption,
+  IInputSelectProps,
+} from "./InputSelect";
+import InputText, { IInputTextProps } from "./InputText";
+import InputTypeahead, { IInputTypeaheadProps } from "./InputTypeahead";
 
 interface IInputComponent {
   label: string;
@@ -20,4 +23,12 @@ export {
   InputTypeahead,
 };
 
-export type { IInputComponent };
+export type {
+  IInputComponent,
+  IInputSelectOption,
+  IInputSelectProps,
+  IInputButtonProps,
+  IInputCheckProps,
+  IInputTextProps,
+  IInputTypeaheadProps,
+};

@@ -27,6 +27,13 @@ import {
   InputSelect,
   InputText,
   InputTypeahead,
+  IInputComponent,
+  IInputSelectOption,
+  IInputSelectProps,
+  IInputButtonProps,
+  IInputCheckProps,
+  IInputTextProps,
+  IInputTypeaheadProps,
 } from "./input";
 import { Layout, LayoutProps } from "./ui";
 
@@ -41,6 +48,7 @@ const Form = {
   InputText,
   InputTypeahead,
 };
+
 const Modal: {
   ModalContext: React.Context<IModalContext>;
   ModalProvider: React.FC<IModalProviderProps>;
@@ -58,3 +66,13 @@ const UI: {
 } = { Layout };
 
 export { Form, Modal, Toast, UI };
+
+export type {
+  IInputComponent,
+  IInputSelectOption,
+  IInputSelectProps,
+  IInputButtonProps,
+  IInputCheckProps,
+  IInputTextProps,
+  IInputTypeaheadProps,
+};
