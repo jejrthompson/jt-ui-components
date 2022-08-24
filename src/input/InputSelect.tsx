@@ -15,7 +15,7 @@ export type IInputSelectOption =
   | number;
 
 export interface IInputSelectProps extends IInputComponent {
-  options: IInputSelectOption[] | undefined;
+  options?: IInputSelectOption[];
 }
 
 export default function InputSelect({
@@ -52,21 +52,20 @@ export default function InputSelect({
         isInvalid={errors[name]}
       >
         <option defaultValue={undefined}>Select one...</option>
-        {options &&
-          options.map((option, idx) =>
-            isObject(option) ? (
-              <option key={idx} value={option.value} disabled={option.disabled}>
-                {option.label}
-              </option>
-            ) : (
-              <option
-                key={idx}
-                value={isString(option) ? camelCase(option) : option}
-              >
-                {option}
-              </option>
-            )
-          )}
+        {options?.map((option, idx) =>
+          isObject(option) ? (
+            <option key={idx} value={option.value} disabled={option.disabled}>
+              {option.label}
+            </option>
+          ) : (
+            <option
+              key={idx}
+              value={isString(option) ? camelCase(option) : option}
+            >
+              {option}
+            </option>
+          )
+        )}
       </Field>
       <ErrorMessage
         name={name}

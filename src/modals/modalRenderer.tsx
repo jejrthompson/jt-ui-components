@@ -35,8 +35,8 @@ interface IModalSave<TForm extends IInputFormValues<TForm>> {
   cancelText?: string;
   cancelIcon?: FontAwesomeIconProps["icon"];
   initialValues: IInputFormProps<TForm>["initialValues"];
-  validate: IInputFormProps<TForm>["validate"];
   body: ReactNode | ((formikProps: FormikProps<TForm>) => ReactNode);
+  validate?: IInputFormProps<TForm>["validate"];
   onSubmit?:
     | ((values: TForm, formikHelpers: FormikHelpers<TForm>) => boolean)
     | ((
@@ -196,7 +196,6 @@ IModalRendererProps<TForm>) {
         </Modal.Header>
         <Modal.Body>
           {formikProps &&
-            modal.type &&
             (modal.type === "save"
               ? isFunction(modal.body)
                 ? modal.body(formikProps)

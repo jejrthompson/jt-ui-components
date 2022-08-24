@@ -1,10 +1,13 @@
 import { config, library } from "@fortawesome/fontawesome-svg-core";
 import {
+  faCheck,
+  faCircleNotch,
   faLightbulb,
   faQuestion,
   faSave,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
+import { Context, FC } from "react";
 
 import {
   IModalContext,
@@ -38,7 +41,7 @@ import {
 import { Layout, LayoutProps } from "./ui";
 
 config.autoAddCss = false;
-library.add(faLightbulb, faQuestion, faSave, faXmark);
+library.add(faCheck, faCircleNotch, faLightbulb, faQuestion, faSave, faXmark);
 
 const Form = {
   InputButton,
@@ -50,19 +53,19 @@ const Form = {
 };
 
 const Modal: {
-  ModalContext: React.Context<IModalContext>;
-  ModalProvider: React.FC<IModalProviderProps>;
+  ModalContext: Context<IModalContext>;
+  ModalProvider: FC<IModalProviderProps>;
   useModal: () => IModalContext;
 } = { ModalContext, ModalProvider, useModal };
 
 const Toast: {
-  ToastrContext: React.Context<IToastContext>;
-  ToastrProvider: React.FC<IToastrProviderProps>;
+  ToastrContext: Context<IToastContext>;
+  ToastrProvider: FC<IToastrProviderProps>;
   useToastr: () => IToastContext;
 } = { ToastrContext, ToastrProvider, useToastr };
 
 const UI: {
-  Layout: React.FC<LayoutProps>;
+  Layout: FC<LayoutProps>;
 } = { Layout };
 
 export { Form, Modal, Toast, UI };
