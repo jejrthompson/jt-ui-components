@@ -1,4 +1,5 @@
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { assign } from "lodash";
 import { CSSProperties, ReactNode, useMemo } from "react";
@@ -42,7 +43,7 @@ export default function InputButton({
 
     switch (type) {
       case "submit":
-        return "check";
+        return faCheck;
       case "reset":
         return "rotate-left";
     }
@@ -65,10 +66,10 @@ export default function InputButton({
         {isLoading ? (
           <FontAwesomeIcon icon="circle-notch" spin />
         ) : (
-          getIcon && <FontAwesomeIcon icon={getIcon} />
+          getIcon && <FontAwesomeIcon icon={getIcon} className="me-2" />
         )}
       </div>
-      {text && <div className="ms-2 d-inline-block">{text}</div>}
+      {text && <div className="d-inline-block">{text}</div>}
     </Button>
   );
 }
