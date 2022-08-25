@@ -1,4 +1,5 @@
 import InputForm from "./form";
+import InputFormListener from "./formListener";
 import InputButton, { IInputButtonProps } from "./InputButton";
 import InputCheck, { IInputCheckProps } from "./InputCheck";
 import InputSelect, {
@@ -13,11 +14,11 @@ interface IInputComponent {
   disabled?: boolean;
   required?: boolean;
 }
-
 export {
   InputButton,
   InputCheck,
   InputForm,
+  InputFormListener,
   InputSelect,
   InputText,
   InputTypeahead,

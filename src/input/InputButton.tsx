@@ -1,5 +1,4 @@
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { assign } from "lodash";
 import { CSSProperties, ReactNode, useMemo } from "react";
@@ -43,7 +42,7 @@ export default function InputButton({
 
     switch (type) {
       case "submit":
-        return faCheck;
+        return "check";
       case "reset":
         return "rotate-left";
     }
