@@ -209,7 +209,7 @@ IModalRendererProps<TForm>) {
         </Modal.Footer>
       </>
     ),
-    [modal, modalProps]
+    [modal, modalProps.buttons, modalProps.headerClassNames, modalProps.icon]
   );
 
   return (
