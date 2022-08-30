@@ -1,4 +1,4 @@
-import { noop } from "lodash";
+import { assign, noop } from "lodash";
 import {
   createContext,
   ReactNode,
@@ -34,7 +34,7 @@ function ModalProvider({ children }: IModalProviderProps) {
   const [modal, setModal] = useState<IModal<any>>();
 
   const save: <T>(modal: IModal<T>) => void = useCallback((modal) => {
-    setModal(modal);
+    setModal(assign({ type: "save" }, modal));
   }, []);
 
   const ask: (modal: IModal) => void = useCallback((modal) => {

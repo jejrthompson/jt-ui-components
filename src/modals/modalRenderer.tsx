@@ -1,14 +1,21 @@
-import {
-  FontAwesomeIcon,
-  FontAwesomeIconProps,
-} from "@fortawesome/react-fontawesome";
+import { FontAwesomeIconProps } from "@fortawesome/react-fontawesome";
 import { FormikHelpers, FormikProps } from "formik";
-import { isFunction } from "lodash";
 import { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import { Modal, ModalProps } from "react-bootstrap";
 
 import InputForm, { IInputFormProps, IInputFormValues } from "../input/form";
-import InputButton, { IInputButtonProps } from "../input/InputButton";
+import { IInputButtonProps } from "../input/InputButton";
+import ModalInner from "./modalInner";
+
+interface IModalBase {
+  // type?: "info" | "ask" | "save";
+  title: string;
+  icon?: FontAwesomeIconProps["icon"];
+  fullscreen?: string | true;
+  isLoading?: boolean;
+  size?: ModalProps["size"];
+  onCancel?: () => void;
+}
 
 interface IModalInfo {
   type?: "info";
@@ -47,18 +54,11 @@ interface IModalSave<TForm extends IInputFormValues<TForm>> {
 
 export type IModal<
   TForm extends IInputFormValues<TForm> = Partial<
-    Record<never, string | number | boolean | Date | undefined>
+    Record<string, string | number | boolean | Date | undefined>
   >
-> = {
-  type: "info" | "ask" | "save";
-  title: string;
-  icon?: FontAwesomeIconProps["icon"];
-  isLoading?: boolean;
-  size?: ModalProps["size"];
-  onCancel?: () => void;
-} & (IModalInfo | IModalAsk | IModalSave<TForm>);
+> = IModalBase & (IModalInfo | IModalAsk | IModalSave<TForm>);
 
-interface IModalProperties {
+export interface IModalProperties {
   headerClassNames: string[];
   icon: FontAwesomeIconProps["icon"];
   buttons: IInputButtonProps[];
@@ -66,13 +66,11 @@ interface IModalProperties {
 
 export interface IModalRendererProps<TForm extends IInputFormValues<TForm>> {
   modal: IModal<TForm>;
-  // type?: "info" | "ask" | "save";
 }
 
 export default function ModalRenderer<TForm extends IInputFormValues<TForm>>({
   modal,
-}: // type,
-IModalRendererProps<TForm>) {
+}: IModalRendererProps<TForm>) {
   const [show, setShow] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -178,46 +176,12 @@ IModalRendererProps<TForm>) {
     }
   }, [handleClose, handleConfirm, isLoading, modal]);
 
-  const renderModalInner = useCallback(
-    (formikProps?: FormikProps<TForm>) => (
-      <>
-        <Modal.Header
-          className={modalProps.headerClassNames.join(" ")}
-          closeVariant="white"
-          closeButton
-        >
-          <Modal.Title>
-            <FontAwesomeIcon
-              icon={modal.icon ? modal.icon : modalProps.icon}
-              className="me-3"
-            />
-            {modal.title}
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {formikProps &&
-            (modal.type === "save"
-              ? isFunction(modal.body)
-                ? modal.body(formikProps)
-                : modal.body
-              : modal.body)}
-        </Modal.Body>
-        <Modal.Footer className="bg-light">
-          {modalProps.buttons.map((button, idx) => (
-            <InputButton key={idx} {...button} />
-          ))}
-        </Modal.Footer>
-      </>
-    ),
-    [modal, modalProps.buttons, modalProps.headerClassNames, modalProps.icon]
-  );
-
   return (
     <Modal
       show={show}
       onHide={handleClose}
       size={modal.size}
-      fullscreen="sm-down"
+      fullscreen={modal.fullscreen || "sm-down"}
     >
       {modal.type === "save" ? (
         <InputForm<TForm>
@@ -225,10 +189,16 @@ IModalRendererProps<TForm>) {
           initialValues={modal.initialValues}
           validate={modal.validate}
         >
-          {renderModalInner}
+          {(formikProps) => (
+            <ModalInner
+              modal={modal}
+              modalProps={modalProps}
+              formikProps={formikProps}
+            />
+          )}
         </InputForm>
       ) : (
-        renderModalInner()
+        <ModalInner modal={modal} modalProps={modalProps} />
       )}
     </Modal>
   );
