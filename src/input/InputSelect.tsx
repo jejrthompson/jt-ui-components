@@ -42,6 +42,7 @@ export default function InputSelect({
       <Form.Label>
         {label}:{required && <sup className="text-danger fw-bold">&nbsp;*</sup>}
       </Form.Label>
+      <Form.Select />
       <Field
         as={Form.Select}
         name={name}

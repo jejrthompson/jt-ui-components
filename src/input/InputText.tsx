@@ -34,6 +34,7 @@ export interface IInputTextProps extends IInputComponent {
   min?: number;
   max?: number;
   step?: number;
+  readonly?: boolean;
 }
 
 export default function InputText({
@@ -43,6 +44,7 @@ export default function InputText({
   type,
   floatingLabel = false,
   showLabel = true,
+  readonly = false,
 }: IInputTextProps) {
   const { errors } = useFormikContext<Record<string, string>>();
 
@@ -62,13 +64,14 @@ export default function InputText({
       name,
       disabled,
       validate,
+      readonly,
       required,
       type,
       as: Form.Control,
       placeholder: label.replace(/[?:]/g, ""),
       isInvalid: errors[name],
     }),
-    [disabled, errors, label, name, required, type, validate]
+    [disabled, errors, label, name, readonly, required, type, validate]
   );
 
   return (
