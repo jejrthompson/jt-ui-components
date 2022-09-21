@@ -1,6 +1,6 @@
 {
   "name": "jt-ui-components",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "JT Components for React-Bootstrap",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
